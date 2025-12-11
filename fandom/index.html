@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fandom Finance - 推し活のお金管理</title>
+    <meta name="description" content="推し活のためのお金管理アプリ。給料日までの収支がすぐわかる。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1a1a 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 3rem; }
+        .app-icon {
+            width: 120px; height: 120px;
+            border-radius: 27px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .tagline { color: #888; font-size: 1.1rem; }
+        .coming-soon {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 1.5rem;
+        }
+        section { margin-bottom: 3rem; }
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .feature h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #ff6b6b; }
+        .feature p { color: #aaa; font-size: 0.9rem; line-height: 1.6; }
+        .links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .links a {
+            color: #ff6b6b;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ff6b6b;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .links a:hover { background: #ff6b6b; color: #000; }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        footer a { color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="app-icon">💰</div>
+            <h1>Fandom Finance</h1>
+            <p class="tagline">推し活のためのお金管理アプリ</p>
+            <span class="coming-soon">Coming Soon</span>
+        </header>
+
+        <section>
+            <h2>こんな悩み、ありませんか？</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>💭 推しへの課金、払える？</h3>
+                    <p>ライブやグッズ、次から次へと出費が…給料日まで持つか不安。</p>
+                </div>
+                <div class="feature">
+                    <h3>🎫 抽選、どこまで申し込む？</h3>
+                    <p>全部当たったらヤバイ…最大リスクを把握したい。</p>
+                </div>
+                <div class="feature">
+                    <h3>⏰ あと何時間働けばいい？</h3>
+                    <p>目標金額まであとどれくらいバイトすればいいか知りたい。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>主な機能</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>📅 給料日カウントダウン</h3>
+                    <p>給料日まであと何日？残高と照らし合わせて収支を把握。</p>
+                </div>
+                <div class="feature">
+                    <h3>📊 収支シミュレーション</h3>
+                    <p>確定支出と抽選中を分けて管理。最悪のケースも想定。</p>
+                </div>
+                <div class="feature">
+                    <h3>🎪 イベント別予算</h3>
+                    <p>ライブやコミケなど、イベントごとに予算を設定。</p>
+                </div>
+                <div class="feature">
+                    <h3>🎨 推し色テーマ</h3>
+                    <p>メンバーカラーでアプリをカスタマイズ。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>リンク</h2>
+            <div class="links">
+                <a href="./privacy.html">プライバシーポリシー</a>
+                <a href="./support.html">サポート</a>
+                <a href="../">その他のアプリ</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 KT828. All rights reserved.</p>
+        <p><a href="../">← トップページ</a></p>
+    </footer>
+</body>
+</html>
