@@ -274,12 +274,25 @@
                 <a href="./privacy.html" data-lang="en">Privacy Policy</a>
                 <a href="./support.html" data-lang="ja">サポート</a>
                 <a href="./support.html" data-lang="en">Support</a>
-                <a href="../" data-lang="ja">その他のアプリ</a>
-                <a href="../" data-lang="en">Other Apps</a>
             </div>
         </section>
+
+        <section id="related-apps" data-related-apps="fandom" style="margin-top:2rem;"></section>
     </div>
 
+    <script src="../shared/apps.js"></script>
+    <script>
+        // Update related apps language when language changes
+        const originalSetLang = setLang;
+        setLang = function(lang) {
+            originalSetLang(lang);
+            const container = document.getElementById('related-apps');
+            if (container) {
+                container.dataset.lang = lang;
+                renderRelatedApps('fandom', 'related-apps', { lang });
+            }
+        };
+    </script>
     <footer>
         <p>&copy; 2025 KT828. All rights reserved.</p>
         <p><a href="../" data-lang="ja">← トップページ</a><a href="../" data-lang="en">← Home</a></p>
