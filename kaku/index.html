@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAKU - 小説執筆支援アプリ</title>
+    <meta name="description" content="KAKUは、ボード上で視覚的に情報を整理しながら執筆できる小説執筆支援アプリです。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1a1a2e;
+            --bg-grid: #252542;
+            --accent: #667eea;
+            --accent-light: #764ba2;
+            --card-yellow: #fff9c4;
+            --card-blue: #e3f2fd;
+            --card-green: #e8f5e9;
+            --card-pink: #fce4ec;
+            --card-orange: #fff3e0;
+            --text-dark: #333;
+            --line-color: rgba(102, 126, 234, 0.6);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grid Background */
+        .canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Connection Lines SVG */
+        .connection-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-lines line {
+            stroke: var(--line-color);
+            stroke-width: 2;
+            stroke-dasharray: 8, 4;
+            animation: dash 20s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -240;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            margin-bottom: 60px;
+            position: relative;
+            transform: rotate(-1deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(-1deg) translateY(0); }
+            50% { transform: rotate(-1deg) translateY(-10px); }
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 16px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .app-icon svg {
+            width: 56px;
+            height: 56px;
+            fill: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .coming-soon {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Feature Cards - Sticky Note Style */
+        .features-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .sticky-note {
+            padding: 24px;
+            border-radius: 4px;
+            box-shadow:
+                0 4px 6px rgba(0,0,0,0.1),
+                0 15px 30px rgba(0,0,0,0.15);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+
+        .sticky-note:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+            box-shadow:
+                0 8px 12px rgba(0,0,0,0.15),
+                0 25px 50px rgba(0,0,0,0.25);
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .sticky-note:nth-child(1) { background: var(--card-yellow); transform: rotate(-2deg); }
+        .sticky-note:nth-child(2) { background: var(--card-blue); transform: rotate(1deg); }
+        .sticky-note:nth-child(3) { background: var(--card-green); transform: rotate(-1deg); }
+        .sticky-note:nth-child(4) { background: var(--card-pink); transform: rotate(2deg); }
+        .sticky-note:nth-child(5) { background: var(--card-orange); transform: rotate(-1.5deg); }
+        .sticky-note:nth-child(6) { background: var(--card-blue); transform: rotate(1.5deg); }
+        .sticky-note:nth-child(7) { background: var(--card-yellow); transform: rotate(-0.5deg); }
+        .sticky-note:nth-child(8) { background: var(--card-green); transform: rotate(2deg); }
+
+        .sticky-note h3 {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sticky-note p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--accent);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #b8c5d6;
+        }
+
+        .info-item .icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-item .icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
+        }
+
+        /* Related Apps */
+        .related-apps {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .related-apps h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .app-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 24px;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .app-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .app-link-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-link-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .app-link-icon.yomu {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .app-link-info h3 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .app-link-info p {
+            font-size: 0.85rem;
+            color: #b8c5d6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 16px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .copyright {
+            color: #6b7c93;
+            font-size: 0.875rem;
+        }
+
+        /* Decorative Elements */
+        .deco-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .deco-dot:nth-child(1) { top: 20%; left: 5%; }
+        .deco-dot:nth-child(2) { top: 40%; right: 8%; }
+        .deco-dot:nth-child(3) { top: 70%; left: 10%; }
+        .deco-dot:nth-child(4) { top: 85%; right: 15%; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .header-card {
+                padding: 30px 20px;
+                transform: rotate(0deg);
+            }
+
+            .sticky-note {
+                transform: rotate(0deg) !important;
+            }
+
+            .features-board {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-bg"></div>
+
+    <!-- Decorative dots -->
+    <div class="deco-dot"></div>
+    <div class="deco-dot"></div>
+    <div class="deco-dot"></div>
+    <div class="deco-dot"></div>
+
+    <!-- Connection Lines -->
+    <svg class="connection-lines" preserveAspectRatio="none">
+        <line x1="10%" y1="30%" x2="30%" y2="45%"></line>
+        <line x1="70%" y1="25%" x2="85%" y2="40%"></line>
+        <line x1="15%" y1="70%" x2="35%" y2="60%"></line>
+        <line x1="65%" y1="75%" x2="90%" y2="65%"></line>
+    </svg>
+
+    <div class="container">
+        <header class="header-card">
+            <div class="app-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+            </div>
+            <h1>KAKU</h1>
+            <p class="subtitle">視覚的に整理しながら書ける、小説執筆支援アプリ</p>
+            <span class="coming-soon">Coming Soon</span>
+        </header>
+
+        <section class="features-board">
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/></svg>
+                    </span>
+                    ボード機能
+                </h3>
+                <p>無限キャンバス上にキャラクターや設定を配置。接続線で相関関係を可視化し、エリア図形でグループ化。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    </span>
+                    執筆機能
+                </h3>
+                <p>エピソード単位での原稿管理。章機能、エピソードタイプ（本編/閑話）、ステータス管理に対応。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    </span>
+                    ワークスペース
+                </h3>
+                <p>ボードと原稿の分割表示。参考資料を見ながら執筆でき、文字数・今日の執筆量も表示。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                    </span>
+                    メモ管理
+                </h3>
+                <p>フォルダ階層で設定資料を整理。ボードから直接メモを参照できるので、アイデア管理が簡単。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H4c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h16c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1z"/></svg>
+                    </span>
+                    iPad/Mac対応
+                </h3>
+                <p>フローティングパネル、スプリットモード、最大化モード。キーボードショートカットも完備。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </span>
+                    7種類のテーマ
+                </h3>
+                <p>ダーク、ライト、セピア、フォレスト、オーシャン、アース。目に優しい配色を選択可能。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                    </span>
+                    投稿支援
+                </h3>
+                <p>「小説家になろう」への投稿用にクリップボードコピー機能を搭載。スムーズに投稿。</p>
+            </div>
+
+            <div class="sticky-note">
+                <h3>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </span>
+                    進捗管理
+                </h3>
+                <p>各エピソードの執筆状況を管理。執筆中/完了のステータスで進捗が一目でわかる。</p>
+            </div>
+        </section>
+
+        <div class="info-panel">
+            <h2>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+                対応環境
+            </h2>
+            <div class="info-list">
+                <div class="info-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+                    </div>
+                    <span>iPhone（iOS 17.0以上）</span>
+                </div>
+                <div class="info-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M18.5 0h-14C3.12 0 2 1.12 2 2.5v19C2 22.88 3.12 24 4.5 24h14c1.38 0 2.5-1.12 2.5-2.5v-19C21 1.12 19.88 0 18.5 0zm-7 23c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm7.5-4H4V3h15v16z"/></svg>
+                    </div>
+                    <span>iPad（iPadOS 17.0以上）</span>
+                </div>
+                <div class="info-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/></svg>
+                    </div>
+                    <span>Mac（Apple Silicon）</span>
+                </div>
+                <div class="info-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <span>オフライン対応</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-apps">
+            <h2>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                関連アプリ
+            </h2>
+            <div class="app-links">
+                <a href="https://kt828.github.io/yomu/" class="app-link">
+                    <div class="app-link-icon yomu">
+                        <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+                    </div>
+                    <div class="app-link-info">
+                        <h3>YOMU</h3>
+                        <p>小説家になろうリーダー</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="support.html">サポート</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+            </div>
+            <p class="copyright">&copy; 2025 KAKU. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

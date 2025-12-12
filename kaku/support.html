@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サポート - KAKU</title>
+    <meta name="description" content="KAKU小説執筆支援アプリのサポートページです。よくある質問やお問い合わせ方法をご案内します。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1a1a2e;
+            --accent: #667eea;
+            --accent-light: #764ba2;
+            --card-yellow: #fff9c4;
+            --card-blue: #e3f2fd;
+            --card-green: #e8f5e9;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Grid Background */
+        .canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-light);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            color: #b8c5d6;
+            font-size: 1.1rem;
+        }
+
+        /* FAQ Section */
+        .section-title {
+            font-size: 1.5rem;
+            margin: 40px 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .faq-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .faq-card:hover {
+            transform: translateX(8px);
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .faq-question::before {
+            content: 'Q';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            color: #b8c5d6;
+            padding-left: 40px;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-card h2 svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .contact-card p {
+            color: #b8c5d6;
+            margin-bottom: 24px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Tips Section - Sticky Notes */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .tip-note {
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .tip-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tip-note:nth-child(1) { background: var(--card-yellow); transform: rotate(-1deg); }
+        .tip-note:nth-child(2) { background: var(--card-blue); transform: rotate(1deg); }
+        .tip-note:nth-child(3) { background: var(--card-green); transform: rotate(-0.5deg); }
+
+        .tip-note h3 {
+            color: var(--text-dark);
+            font-size: 1rem;
+            margin: 16px 0 8px;
+        }
+
+        .tip-note p {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 16px;
+        }
+
+        .copyright {
+            color: #6b7c93;
+            font-size: 0.875rem;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tip-note {
+                transform: rotate(0deg) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-bg"></div>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                トップに戻る
+            </a>
+            <h1>サポート</h1>
+            <p class="page-subtitle">KAKUに関するよくある質問とサポート情報</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+                よくある質問
+            </h2>
+            <div class="faq-list">
+                <div class="faq-card">
+                    <div class="faq-question">データはどこに保存されますか？</div>
+                    <div class="faq-answer">
+                        すべてのデータはお使いのデバイス内に保存されます。アカウント登録やインターネット接続は不要です。プライバシーを重視し、外部サーバーへのデータ送信は行いません。
+                    </div>
+                </div>
+
+                <div class="faq-card">
+                    <div class="faq-question">他のデバイスとデータを同期できますか？</div>
+                    <div class="faq-answer">
+                        現在のバージョンでは、デバイス間の同期機能は提供していません。将来のアップデートでiCloud同期機能の追加を予定しています。
+                    </div>
+                </div>
+
+                <div class="faq-card">
+                    <div class="faq-question">ボード上のアイテムを接続線で繋げるには？</div>
+                    <div class="faq-answer">
+                        ボード画面で、アイテムを長押しするとメニューが表示されます。「接続線を追加」を選択し、接続先のアイテムをタップすると線が引かれます。
+                    </div>
+                </div>
+
+                <div class="faq-card">
+                    <div class="faq-question">iPad/Macでキーボードショートカットを使うには？</div>
+                    <div class="faq-answer">
+                        iPad/Macでは以下のショートカットが使えます：<br>
+                        ・Command+0：サイドバーの表示/非表示<br>
+                        ・Command+W：最前面のパネルを閉じる<br>
+                        ・ESC：キーボードを閉じる
+                    </div>
+                </div>
+
+                <div class="faq-card">
+                    <div class="faq-question">「小説家になろう」に直接投稿できますか？</div>
+                    <div class="faq-answer">
+                        「小説家になろう」への直接投稿APIは提供されていないため、アプリから直接投稿することはできません。代わりに、エピソードの内容をクリップボードにコピーする機能を提供しています。コピーした内容を「小説家になろう」の投稿画面に貼り付けてご利用ください。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+                使い方のヒント
+            </h2>
+            <div class="tips-grid">
+                <div class="tip-note">
+                    <h3>ワークスペース活用</h3>
+                    <p>ボードにキャラクター設定を配置し、ワークスペースで参照しながら執筆すると効率的です。</p>
+                </div>
+                <div class="tip-note">
+                    <h3>章機能の活用</h3>
+                    <p>長編作品は章機能でエピソードをグループ化。構成の見通しが良くなります。</p>
+                </div>
+                <div class="tip-note">
+                    <h3>テーマを変えて気分転換</h3>
+                    <p>7種類のテーマで執筆環境を変えられます。セピアは目に優しくおすすめ。</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="contact-card">
+            <h2>
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                お問い合わせ
+            </h2>
+            <p>上記のFAQで解決しない場合は、お気軽にお問い合わせください。</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsvKQg1lfqXH4JEZlbdMkXkBrSF-Erv9_kIHPaJI_9GqY_IQ/viewform" class="contact-button" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                お問い合わせフォーム
+            </a>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">トップ</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+            </div>
+            <p class="copyright">&copy; 2025 KAKU. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

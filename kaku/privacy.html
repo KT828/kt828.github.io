@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー - KAKU</title>
+    <meta name="description" content="KAKU小説執筆支援アプリのプライバシーポリシーです。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1a1a2e;
+            --accent: #667eea;
+            --accent-light: #764ba2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Grid Background */
+        .canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-light);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: #6b7c93;
+            font-size: 0.9rem;
+        }
+
+        /* Content */
+        .policy-content {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .policy-section {
+            margin-bottom: 36px;
+        }
+
+        .policy-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .policy-section h2 svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .policy-section p {
+            color: #b8c5d6;
+            margin-bottom: 12px;
+        }
+
+        .policy-section ul {
+            color: #b8c5d6;
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 16px;
+        }
+
+        .copyright {
+            color: #6b7c93;
+            font-size: 0.875rem;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .policy-content {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-bg"></div>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                トップに戻る
+            </a>
+            <h1>プライバシーポリシー</h1>
+            <p class="last-updated">最終更新日: 2025年1月</p>
+        </header>
+
+        <div class="policy-content">
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    はじめに
+                </h2>
+                <p>
+                    KAKU（以下「本アプリ」）は、ユーザーのプライバシーを最優先に考えて設計されています。
+                    本プライバシーポリシーでは、本アプリがどのようにデータを取り扱うかについて説明します。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+                    収集する情報
+                </h2>
+                <p>本アプリは以下の情報をデバイス内にのみ保存します：</p>
+                <ul>
+                    <li>プロジェクト情報（作品名、概要など）</li>
+                    <li>エピソードデータ（本文、ステータスなど）</li>
+                    <li>ボード情報（アイテム配置、接続線など）</li>
+                    <li>メモデータ</li>
+                    <li>アプリ設定（テーマ、フォントサイズなど）</li>
+                </ul>
+                <div class="highlight-box">
+                    <p>これらのデータは外部サーバーに送信されることはありません。すべてお使いのデバイス内に保存されます。</p>
+                </div>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    ネットワーク通信
+                </h2>
+                <p>
+                    本アプリはオフラインで完全に動作します。インターネット接続は必要ありません。
+                    本アプリからサーバーへの通信は一切行われません。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                    分析・広告
+                </h2>
+                <p>
+                    本アプリは、分析ツールや広告SDKを使用していません。
+                    ユーザーの行動データや個人情報を収集・送信することはありません。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                    クリップボード
+                </h2>
+                <p>
+                    本アプリには、エピソードの内容をクリップボードにコピーする機能があります。
+                    この機能はユーザーが明示的に操作した場合のみ動作し、自動的にクリップボードを読み取ることはありません。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9H0l4 4 4-4H5c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.51 0-2.91-.49-4.06-1.3l-1.42 1.44C8.04 20.3 9.94 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+                    子どものプライバシー
+                </h2>
+                <p>
+                    本アプリは特定の年齢層を対象としていませんが、13歳未満のお子様の個人情報を意図的に収集することはありません。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    ポリシーの変更
+                </h2>
+                <p>
+                    本プライバシーポリシーは、必要に応じて更新されることがあります。
+                    重要な変更がある場合は、アプリ内またはこのページでお知らせします。
+                </p>
+            </section>
+
+            <section class="policy-section">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    お問い合わせ
+                </h2>
+                <p>
+                    本プライバシーポリシーに関するご質問がございましたら、
+                    <a href="support.html" style="color: var(--accent);">サポートページ</a>よりお問い合わせください。
+                </p>
+            </section>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">トップ</a>
+                <a href="support.html">サポート</a>
+            </div>
+            <p class="copyright">&copy; 2025 KAKU. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
