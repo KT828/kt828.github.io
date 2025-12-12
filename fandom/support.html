@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サポート - Fandom Finance</title>
+    <title>Support - Fandom Finance</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -13,9 +13,58 @@
             line-height: 1.8;
         }
         .container { max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #888;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .lang-btn.active {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            color: #000;
+        }
+        .lang-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        /* Hide inactive language */
+        [data-lang="en"] { display: none; }
+        .lang-en [data-lang="ja"] { display: none; }
+        .lang-en [data-lang="en"] { display: block; }
+
         h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; }
         .app-name { color: #ff6b6b; margin-bottom: 2rem; }
-        h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #fff; border-left: 3px solid #ff6b6b; padding-left: 1rem; }
+        h2 {
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem;
+            color: #fff;
+            border-left: 3px solid #ff6b6b;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        h2 svg {
+            width: 20px;
+            height: 20px;
+            fill: #ff6b6b;
+        }
         p { margin-bottom: 1rem; color: #aaa; }
         .faq { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; }
         .faq h3 { color: #fff; font-size: 1rem; margin-bottom: 0.5rem; }
@@ -31,39 +80,84 @@
             font-weight: bold;
             margin-top: 1rem;
         }
+        .contact-btn:hover { background: #ff8585; }
         footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #333; text-align: center; }
         footer a { color: #888; text-decoration: none; }
     </style>
 </head>
 <body>
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('ja')">JP</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+
     <div class="container">
-        <h1>サポート</h1>
+        <h1 data-lang="ja">サポート</h1>
+        <h1 data-lang="en">Support</h1>
         <p class="app-name">Fandom Finance</p>
 
-        <h2>よくある質問</h2>
+        <h2 data-lang="ja">
+            <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+            よくある質問
+        </h2>
+        <h2 data-lang="en">
+            <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+            FAQ
+        </h2>
 
         <div class="faq">
-            <h3>Q. データが消えた</h3>
-            <p>iCloudが有効な場合、デバイス間で同期されます。同じApple IDでサインインしているか確認してください。</p>
+            <h3 data-lang="ja">Q. データが消えた</h3>
+            <h3 data-lang="en">Q. My data disappeared</h3>
+            <p data-lang="ja">iCloudが有効な場合、デバイス間で同期されます。同じApple IDでサインインしているか確認してください。</p>
+            <p data-lang="en">If iCloud is enabled, data syncs across devices. Make sure you're signed in with the same Apple ID.</p>
         </div>
 
         <div class="faq">
-            <h3>Q. 広告を非表示にしたい</h3>
-            <p>設定から買い切りのProプランを購入すると、広告が非表示になります。</p>
+            <h3 data-lang="ja">Q. 広告を非表示にしたい</h3>
+            <h3 data-lang="en">Q. How do I remove ads?</h3>
+            <p data-lang="ja">設定から買い切りのProプランを購入すると、広告が非表示になります。</p>
+            <p data-lang="en">Purchase the one-time Pro plan in Settings to remove all ads.</p>
         </div>
 
         <div class="faq">
-            <h3>Q. 機能のリクエストがある</h3>
-            <p>ぜひお問い合わせください！今後のアップデートの参考にさせていただきます。</p>
+            <h3 data-lang="ja">Q. 機能のリクエストがある</h3>
+            <h3 data-lang="en">Q. I have a feature request</h3>
+            <p data-lang="ja">ぜひお問い合わせください！今後のアップデートの参考にさせていただきます。</p>
+            <p data-lang="en">Please contact us! We consider all feedback for future updates.</p>
         </div>
 
-        <h2>お問い合わせ</h2>
-        <p>上記で解決しない場合は、以下よりお問い合わせください。</p>
-        <a href="mailto:support@example.com?subject=Fandom%20Finance%20サポート" class="contact-btn">メールで問い合わせ</a>
+        <h2 data-lang="ja">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            お問い合わせ
+        </h2>
+        <h2 data-lang="en">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Contact Us
+        </h2>
+        <p data-lang="ja">上記で解決しない場合は、以下よりお問い合わせください。</p>
+        <p data-lang="en">If the above doesn't help, please contact us below.</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsvKQg1lfqXH4JEZlbdMkXkBrSF-Erv9_kIHPaJI_9GqY_IQ/viewform" class="contact-btn" target="_blank" data-lang="ja">お問い合わせフォーム</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsvKQg1lfqXH4JEZlbdMkXkBrSF-Erv9_kIHPaJI_9GqY_IQ/viewform" class="contact-btn" target="_blank" data-lang="en">Contact Form</a>
 
         <footer>
-            <a href="./">← Fandom Financeトップページ</a>
+            <a href="./" data-lang="ja">← Fandom Financeトップページ</a>
+            <a href="./" data-lang="en">← Back to Fandom Finance</a>
+            <span> | </span>
+            <a href="./privacy.html" data-lang="ja">プライバシーポリシー</a>
+            <a href="./privacy.html" data-lang="en">Privacy Policy</a>
         </footer>
     </div>
+
+    <script>
+        function setLang(lang) {
+            document.body.classList.toggle('lang-en', lang === 'en');
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === (lang === 'ja' ? 'JP' : 'EN'));
+            });
+            localStorage.setItem('fandom-lang', lang);
+        }
+        const savedLang = localStorage.getItem('fandom-lang');
+        if (savedLang) setLang(savedLang);
+    </script>
 </body>
 </html>

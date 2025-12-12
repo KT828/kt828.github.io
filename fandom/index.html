@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fandom Finance - 推し活のお金管理</title>
-    <meta name="description" content="推し活のためのお金管理アプリ。給料日までの収支がすぐわかる。">
+    <title>Fandom Finance - Fan Activity Budget Manager</title>
+    <meta name="description" content="Budget management app for fan activities. Track your spending until payday.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -14,15 +14,54 @@
             color: #fff;
         }
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #888;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .lang-btn.active {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            color: #000;
+        }
+        .lang-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        /* Hide inactive language */
+        [data-lang="en"] { display: none; }
+        .lang-en [data-lang="ja"] { display: none; }
+        .lang-en [data-lang="en"] { display: block; }
+
         header { text-align: center; margin-bottom: 3rem; }
         .app-icon {
             width: 120px; height: 120px;
             border-radius: 27px;
             background: linear-gradient(135deg, #ff6b6b, #feca57);
             display: flex; align-items: center; justify-content: center;
-            font-size: 3rem;
             margin: 0 auto 1.5rem;
             box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+        }
+        .app-icon svg {
+            width: 60px;
+            height: 60px;
+            fill: white;
         }
         h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
         .tagline { color: #888; font-size: 1.1rem; }
@@ -41,6 +80,14 @@
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid rgba(255, 107, 107, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2 svg {
+            width: 24px;
+            height: 24px;
+            fill: #ff6b6b;
         }
         .features {
             display: grid;
@@ -52,7 +99,20 @@
             border-radius: 12px;
             padding: 1.5rem;
         }
-        .feature h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #ff6b6b; }
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feature h3 svg {
+            width: 20px;
+            height: 20px;
+            fill: #ff6b6b;
+            flex-shrink: 0;
+        }
         .feature p { color: #aaa; font-size: 0.9rem; line-height: 1.6; }
         .links { display: flex; gap: 1rem; flex-wrap: wrap; }
         .links a {
@@ -74,67 +134,168 @@
     </style>
 </head>
 <body>
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('ja')">JP</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+
     <div class="container">
         <header>
-            <div class="app-icon">💰</div>
+            <div class="app-icon">
+                <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+            </div>
             <h1>Fandom Finance</h1>
-            <p class="tagline">推し活のためのお金管理アプリ</p>
+            <p class="tagline" data-lang="ja">推し活のためのお金管理アプリ</p>
+            <p class="tagline" data-lang="en">Budget Manager for Fan Activities</p>
             <span class="coming-soon">Coming Soon</span>
         </header>
 
         <section>
-            <h2>こんな悩み、ありませんか？</h2>
+            <h2 data-lang="ja">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                こんな悩み、ありませんか？
+            </h2>
+            <h2 data-lang="en">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                Sound Familiar?
+            </h2>
             <div class="features">
                 <div class="feature">
-                    <h3>💭 推しへの課金、払える？</h3>
-                    <p>ライブやグッズ、次から次へと出費が…給料日まで持つか不安。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        推しへの課金、払える？
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        Can I Afford This?
+                    </h3>
+                    <p data-lang="ja">ライブやグッズ、次から次へと出費が…給料日まで持つか不安。</p>
+                    <p data-lang="en">Concerts, merch, events... Will my budget last until payday?</p>
                 </div>
                 <div class="feature">
-                    <h3>🎫 抽選、どこまで申し込む？</h3>
-                    <p>全部当たったらヤバイ…最大リスクを把握したい。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        抽選、どこまで申し込む？
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        Lottery Risk?
+                    </h3>
+                    <p data-lang="ja">全部当たったらヤバイ…最大リスクを把握したい。</p>
+                    <p data-lang="en">What if all my lottery entries win? Know your max risk.</p>
                 </div>
                 <div class="feature">
-                    <h3>⏰ あと何時間働けばいい？</h3>
-                    <p>目標金額まであとどれくらいバイトすればいいか知りたい。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        あと何時間働けばいい？
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        Hours to Goal?
+                    </h3>
+                    <p data-lang="ja">目標金額まであとどれくらいバイトすればいいか知りたい。</p>
+                    <p data-lang="en">Calculate how many work hours until you reach your savings goal.</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>主な機能</h2>
+            <h2 data-lang="ja">
+                <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                主な機能
+            </h2>
+            <h2 data-lang="en">
+                <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                Key Features
+            </h2>
             <div class="features">
                 <div class="feature">
-                    <h3>📅 給料日カウントダウン</h3>
-                    <p>給料日まであと何日？残高と照らし合わせて収支を把握。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        給料日カウントダウン
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        Payday Countdown
+                    </h3>
+                    <p data-lang="ja">給料日まであと何日？残高と照らし合わせて収支を把握。</p>
+                    <p data-lang="en">Days until payday with balance tracking and spending overview.</p>
                 </div>
                 <div class="feature">
-                    <h3>📊 収支シミュレーション</h3>
-                    <p>確定支出と抽選中を分けて管理。最悪のケースも想定。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                        収支シミュレーション
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                        Budget Simulation
+                    </h3>
+                    <p data-lang="ja">確定支出と抽選中を分けて管理。最悪のケースも想定。</p>
+                    <p data-lang="en">Separate confirmed vs pending expenses. Plan for worst case.</p>
                 </div>
                 <div class="feature">
-                    <h3>🎪 イベント別予算</h3>
-                    <p>ライブやコミケなど、イベントごとに予算を設定。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                        イベント別予算
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                        Event Budgets
+                    </h3>
+                    <p data-lang="ja">ライブやコミケなど、イベントごとに予算を設定。</p>
+                    <p data-lang="en">Set budgets per event: concerts, conventions, meet & greets.</p>
                 </div>
                 <div class="feature">
-                    <h3>🎨 推し色テーマ</h3>
-                    <p>メンバーカラーでアプリをカスタマイズ。</p>
+                    <h3 data-lang="ja">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        推し色テーマ
+                    </h3>
+                    <h3 data-lang="en">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        Fan Color Themes
+                    </h3>
+                    <p data-lang="ja">メンバーカラーでアプリをカスタマイズ。</p>
+                    <p data-lang="en">Customize with your favorite member's color.</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>リンク</h2>
+            <h2 data-lang="ja">
+                <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                リンク
+            </h2>
+            <h2 data-lang="en">
+                <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                Links
+            </h2>
             <div class="links">
-                <a href="./privacy.html">プライバシーポリシー</a>
-                <a href="./support.html">サポート</a>
-                <a href="../">その他のアプリ</a>
+                <a href="./privacy.html" data-lang="ja">プライバシーポリシー</a>
+                <a href="./privacy.html" data-lang="en">Privacy Policy</a>
+                <a href="./support.html" data-lang="ja">サポート</a>
+                <a href="./support.html" data-lang="en">Support</a>
+                <a href="../" data-lang="ja">その他のアプリ</a>
+                <a href="../" data-lang="en">Other Apps</a>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2024 KT828. All rights reserved.</p>
-        <p><a href="../">← トップページ</a></p>
+        <p>&copy; 2025 KT828. All rights reserved.</p>
+        <p><a href="../" data-lang="ja">← トップページ</a><a href="../" data-lang="en">← Home</a></p>
     </footer>
+
+    <script>
+        function setLang(lang) {
+            document.body.classList.toggle('lang-en', lang === 'en');
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === (lang === 'ja' ? 'JP' : 'EN'));
+            });
+            localStorage.setItem('fandom-lang', lang);
+        }
+        // Load saved language preference
+        const savedLang = localStorage.getItem('fandom-lang');
+        if (savedLang) setLang(savedLang);
+    </script>
 </body>
 </html>
