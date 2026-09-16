@@ -1,226 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOMU - なろうリーダー</title>
-    <meta name="description" content="「小説家になろう」専用の快適リーダーアプリ。169種類のバッジを集めて読書をもっと楽しく。">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            min-height: 100vh;
-            color: #fff;
-        }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        header { text-align: center; margin-bottom: 3rem; }
-        .app-icon {
-            width: 120px; height: 120px;
-            border-radius: 27px;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 10px 40px rgba(79, 172, 254, 0.3);
-            overflow: hidden;
-        }
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .tagline { color: #888; font-size: 1.1rem; }
-        .store-badge {
-            display: inline-block;
-            margin-top: 1.5rem;
-        }
-        .store-badge img { height: 50px; }
-        section { margin-bottom: 3rem; }
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(79, 172, 254, 0.3);
-        }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-        .feature {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-        .feature-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .feature-icon {
-            width: 24px;
-            height: 24px;
-            fill: #4facfe;
-        }
-        .feature h3 { font-size: 1.1rem; color: #4facfe; }
-        .feature p { color: #aaa; font-size: 0.9rem; line-height: 1.6; }
-        .links { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .links a {
-            color: #4facfe;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid #4facfe;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        .links a:hover { background: #4facfe; color: #000; }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-            font-size: 0.85rem;
-        }
-        footer a { color: #888; }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YOMUの配信終了と、既存利用者向けの保存データ確認・書き出しについてご案内します。">
+    <title>YOMU — 保存データの確認と書き出し</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="app-icon">
-                <img src="./images/app-icon.png" alt="YOMU App Icon">
-            </div>
-            <h1>YOMU</h1>
-            <p class="tagline">「小説家になろう」専用の快適リーダー</p>
-            <a href="https://apps.apple.com/app/id6755989413" class="store-badge">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp" alt="App Storeからダウンロード">
-            </a>
-        </header>
+    <header class="shell topbar">
+        <a class="wordmark" href="../">KT828 Apps</a>
+        <nav class="topnav" aria-label="YOMUナビゲーション">
+            <a href="./privacy.html">プライバシー</a>
+            <a href="./support.html">サポート</a>
+        </nav>
+    </header>
 
-        <section>
-            <h2>Ver 1.5 新機能</h2>
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>プッシュ通知</h3>
-                    </div>
-                    <p>本棚の作品が更新されると通知でお知らせ。</p>
+    <main class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="status">新規配信終了</p>
+                <h1>YOMUのサービスを終了します。</h1>
+                <p class="lead">これまで利用いただいた方が、保存済みの本棚や読書位置を確認し、端末外へ書き出せるよう最終サポート版を準備しています。</p>
+                <div class="actions">
+                    <a class="button" href="#saved-data">保存データについて</a>
+                    <a class="button secondary" href="./support.html">サポートを見る</a>
                 </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>ウィジェット</h3>
-                    </div>
-                    <p>ホーム画面・ロック画面で続きや更新をチェック。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>Safariから追加</h3>
-                    </div>
-                    <p>共有ボタンからYOMUを選んで本棚に追加。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>あなたへのおすすめ</h3>
-                    </div>
-                    <p>読書履歴から類似作品を自動で推薦。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/></svg>
-                        <h3>検索条件の保存</h3>
-                    </div>
-                    <p>よく使う検索条件をワンタップで呼び出し。</p>
-                </div>
+            </div>
+            <img class="app-icon" src="./images/app-icon.png" width="152" height="152" alt="YOMUのアプリアイコン">
+        </section>
+
+        <aside class="notice" aria-label="重要なお知らせ">
+            <strong>書き出しが終わるまで、アプリを削除しないでください。</strong>
+            <p>アプリを削除すると、端末内だけに残っているデータを確認できなくなる場合があります。</p>
+        </aside>
+
+        <section class="section" id="saved-data">
+            <h2>最終サポート版でできること</h2>
+            <p class="section-intro">1.7.3は、新しい作品を探したり本文を読んだりする版ではありません。これまでの記録を手元に残し、公式サービスでの手動登録を助けるための更新です。</p>
+            <div class="grid">
+                <article class="card">
+                    <h3>保存内容を確認</h3>
+                    <p>本棚、フォルダ、読書履歴、最後に読んだ話を確認できます。</p>
+                </article>
+                <article class="card">
+                    <h3>ファイルへ書き出す</h3>
+                    <p>保存データ一式をJSON、作品一覧をCSVで保存できます。一般向けとR18は別ファイルです。</p>
+                </article>
+                <article class="card">
+                    <h3>公式ページを開く</h3>
+                    <p>保存作品や最後に読んだ話をSafariで開き、公式サービス上で手動登録できます。</p>
+                </article>
+                <article class="card">
+                    <h3>データを分けて扱う</h3>
+                    <p>R18姉妹サイトの記録は、対象データがある場合だけ年齢確認後に表示します。</p>
+                </article>
             </div>
         </section>
 
-        <section>
-            <h2>主な機能</h2>
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>本棚管理</h3>
-                    </div>
-                    <p>フォルダ整理、スマートフォルダで作品を整理。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M12 15l-3.5 2 1-4L6 10l4-.5L12 6l2 3.5 4 .5-3.5 3 1 4z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>169種類のバッジ</h3>
-                    </div>
-                    <p>読書を続けてバッジを獲得。レア度で演出も変化。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2"/></svg>
-                        <h3>読書統計</h3>
-                    </div>
-                    <p>カレンダーヒートマップで読書の軌跡を可視化。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>読み上げ機能</h3>
-                    </div>
-                    <p>バックグラウンド再生対応。ながら読書に最適。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>レベルシステム</h3>
-                    </div>
-                    <p>読書でEXPを獲得してレベルアップ。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5-11 11" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-                        <h3>ステータスカード</h3>
-                    </div>
-                    <p>ギルドカード風のカスタマイズ＆シェア機能。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/></svg>
-                        <h3>6種類のテーマ</h3>
-                    </div>
-                    <p>ダーク、ライト、セピアなど好みに合わせて。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2"/></svg>
-                        <h3>iPad対応</h3>
-                    </div>
-                    <p>サイドバーナビゲーションで快適操作。</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-header">
-                        <svg class="feature-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2"/></svg>
-                        <h3>12種類のアイコン</h3>
-                    </div>
-                    <p>好みのアプリアイコンを選択。</p>
-                </div>
+        <section class="section">
+            <div class="prose">
+                <h2>今回の変更について</h2>
+                <p>2026年8月20日に「なろうデベロッパー」利用ガイドラインが制定されました。YOMUでは、公式サービスと機能が重なる従来版を継続せず、API利用、作品検索、アプリ内本文表示などを終了します。</p>
+                <p><a href="https://dev.syosetu.com/site/guideline/">なろうデベロッパー利用ガイドライン</a></p>
+
+                <h2>公式サービスへの登録</h2>
+                <p>YOMUから公式サービスへデータを直接移すことはできません。保存作品の公式ページを開き、必要な作品を利用者自身で登録してください。</p>
+                <p><a href="https://syosetu.com/helpcenter/helppage/helppageid/111/">公式ブックマークの使い方</a></p>
+
+                <h2>YOMU+の返金について</h2>
+                <p>返金の対象になるかどうかはAppleが判断します。申請を希望する場合は、購入時のApple AccountでApple公式の手続きを行ってください。</p>
+                <p><a href="https://support.apple.com/ja-jp/118223">Appleの返金手順</a></p>
             </div>
         </section>
+    </main>
 
-        <section>
-            <h2>リンク</h2>
-            <div class="links">
-                <a href="./privacy.html">プライバシーポリシー</a>
-                <a href="./support.html">サポート</a>
-            </div>
-        </section>
-
-        <section id="related-apps" data-related-apps="yomu" data-lang="ja" style="margin-top:2rem;"></section>
-    </div>
-
-    <script src="../shared/apps.js"></script>
-    <footer>
-        <p>&copy; 2025 KT828. All rights reserved.</p>
-        <p><a href="../">トップページ</a></p>
+    <footer class="shell footer">
+        <p>&copy; 2026 KT828</p>
+        <p>YOMUは株式会社ヒナプロジェクトの公式アプリではありません。</p>
     </footer>
 </body>
 </html>

@@ -1,94 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="KT828が開発しているiPhone・iPadアプリの案内ページです。">
     <title>KT828 Apps</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .subtitle { color: #888; margin-bottom: 3rem; }
-        .apps {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .app-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            width: 280px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: #fff;
-        }
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 18px;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 1rem;
-        }
-        .app-card h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .app-card p { color: #aaa; font-size: 0.9rem; line-height: 1.5; }
-        .yomu .app-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .fandom .app-icon { background: linear-gradient(135deg, #ff6b6b, #feca57); }
-        footer {
-            margin-top: 3rem;
-            color: #666;
-            font-size: 0.85rem;
-        }
-    </style>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./assets/site.css">
 </head>
 <body>
-    <h1>KT828 Apps</h1>
-    <p class="subtitle">iOS Apps for Your Daily Life</p>
+    <header class="shell topbar">
+        <a class="wordmark" href="./" aria-label="KT828 Apps トップ">KT828 Apps</a>
+        <nav class="topnav" aria-label="ページ内ナビゲーション">
+            <a href="#apps">Apps</a>
+        </nav>
+    </header>
 
-    <div class="apps">
-        <a href="./yomu/" class="app-card yomu">
-            <div class="app-icon">📖</div>
-            <h2>YOMU</h2>
-            <p>「小説家になろう」専用リーダー。137種類のバッジを集めて読書をもっと楽しく。</p>
-        </a>
+    <main class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">iPhone / iPad</p>
+                <h1>KT828のアプリ</h1>
+                <p class="lead">個人で開発しているアプリと、それぞれのサポート情報を掲載しています。</p>
+            </div>
+        </section>
 
-        <a href="./fandom/" class="app-card fandom">
-            <div class="app-icon">💰</div>
-            <h2>Fandom Finance</h2>
-            <p>推し活のためのお金管理アプリ。給料日までの収支がすぐわかる。</p>
-        </a>
-    </div>
+        <section class="section" id="apps">
+            <h2>Apps</h2>
+            <div class="app-list">
+                <a class="app-row" href="./kaku/">
+                    <span class="app-glyph" aria-hidden="true">K</span>
+                    <div>
+                        <h2>KAKU</h2>
+                        <p>小説を書くための執筆支援アプリ</p>
+                    </div>
+                    <span class="row-status">詳細を見る</span>
+                </a>
 
-    <footer>
-        &copy; 2024 KT828. All rights reserved.
+                <a class="app-row" href="./fandom/">
+                    <span class="app-glyph" aria-hidden="true">F</span>
+                    <div>
+                        <h2>Fandom Finance</h2>
+                        <p>推し活のための予算・支出管理</p>
+                    </div>
+                    <span class="row-status">詳細を見る</span>
+                </a>
+
+                <a class="app-row" href="./yomu/">
+                    <span class="app-glyph" aria-hidden="true">Y</span>
+                    <div>
+                        <h2>YOMU</h2>
+                        <p>保存済み読書データの確認と書き出し</p>
+                    </div>
+                    <span class="row-status">新規配信終了</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="shell footer">
+        <p>&copy; 2026 KT828</p>
+        <p>iPhone / iPad apps</p>
     </footer>
 </body>
 </html>
